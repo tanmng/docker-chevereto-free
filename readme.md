@@ -9,15 +9,13 @@
 
 This docker image was created from the [Chevereto-Free github repository][cheveretogithub].
 
-## Connection to database
+## Supported tags and respective Dockerfile links
 
-[Chevereto][cheveretourl] requires an Mysql database to store its information.
-You can use a [Mysql](https://hub.docker.com/_/mysql/) or [MariaDB](https://hub.docker.com/_/mariadb/) container to host this.
+* `1.0.7` - Using the [`1.0.7` release](https://github.com/Chevereto/Chevereto-Free/releases/tag/1.0.7) ([1.0.7/Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/1.0.7/Dockerfile))
+* `latest` - Using latest cloned source code from [orignal repo][cheveretogithub] ([latest/Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/latest/Dockerfile))
+* `installer` - Using latest [installer script](https://cdn.rawgit.com/Chevereto/php-repo-installer/master/index.php) ([installer/Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/installer/Dockerfile)) - Once you start the container with this image, you will have to wait for it to download latest source code from [original repo][cheveretogithub]
 
-Information on connection to database is provided to container via environment
-variables.
-
-These variables are
+## Environment variables
 
 * `CHEVERETO_DB_HOST` - hostname of the Database machine that you wish to
   connect, default to `db`
@@ -28,22 +26,31 @@ These variables are
 * `CHEVERETO_DB_PREFIX` - Table prefix (use this to run multiple instance of
   Chevereto using the same Database ), default to `chv_`
 
+
+## Connection to database
+
+[Chevereto][cheveretourl] requires an Mysql database to store its information.
+You can use a [Mysql](https://hub.docker.com/_/mysql/) or [MariaDB](https://hub.docker.com/_/mariadb/) container to host this.
+
+Information on connection to database is provided to container via environment
+variables explained above.
+
 ## Permanent storage
 
 [Chevereto][cheveretourl] stores images uploaded by users in `/var/www/html/images` directory within the container.
 
 You can mount a [data volume](https://docs.docker.com/engine/tutorials/dockervolumes/#data-volumes) at this location to ensure that you don't lose your
-images if you relaunch/remove container
+images if you relaunch/remove container.
 
 ## Example Usage
 
 I recommend you to use [Docker-compose](https://docs.docker.com/compose/) / [Docker swarm](https://docs.docker.com/engine/swarm/) to launch Chevereto in
 conjunction with a MySQL database. A sample of docker-compose.yaml can be found
-below
+below.
 
 ### Docker compose
 
-Note: Thanks to backward compatibility of docker-compose, you can change the `version` to `2` and it will still works
+Note: Thanks to backward compatibility of docker-compose, you can change the `version` to `2` and it will still works.
 
 ```yaml
 version: '3'
@@ -97,6 +104,6 @@ docker run -it --name chevereto -d \
     -e "CHEVERETO_DB_PASSWORD=chevereto" \
     -e "CHEVERETO_DB_NAME=chevereto" \
     -e "CHEVERETO_DB_PREFIX=chv_" \
-    tanmng/chevereto
+    nmtan/chevereto
 ```
 
