@@ -44,8 +44,8 @@ RUN curl -O https://codeload.github.com/Chevereto/Chevereto-Free/tar.gz/${CHEVER
 
 COPY settings.php app/settings.php
 
-# Change back to root user for normal Service start up
-USER root
-
 # Expose the image directory
 VOLUME /var/www/html/images
+
+# Change back to root user for normal Service start up
+USER root
