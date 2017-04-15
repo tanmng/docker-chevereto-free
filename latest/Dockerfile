@@ -2,6 +2,7 @@ FROM php:7.1.3-apache
 MAINTAINER "Manh Tan Nguyen <tan.mng90@gmail.com>"
 
 ENV CHEVERETO_APACHE_RUN_USER www-data
+ENV CHEVERETO_APACHE_RUN_GROUP www-data
 
 # DB connection environment variables
 ENV CHEVERETO_DB_HOST db
@@ -38,11 +39,12 @@ LABEL org.label-schema.url="https://github.com/tanmng/docker-chevereto" \
       com.puppet.dockerfile="/Dockerfile"
 
 # Download installer script
-USER ${CHEVERETO_APACHE_RUN_USER}
-
 RUN git clone https://github.com/Chevereto/Chevereto-Free.git ${CHEVERETO_CLONE_DIR} \
     && rsync -avip ${CHEVERETO_CLONE_DIR}/ /var/www/html/ \
-    && rm -rf ${CHEVERETO_CLONE_DIR}
+    && rm -rf ${CHEVERETO_CLONE_DIR} \
+    && chown -R ${CHEVERETO_APACHE_RUN_USER}:${CHEVERETO_APACHE_RUN_GROUP} /var/www/html
+
+USER ${CHEVERETO_APACHE_RUN_USER}
 
 COPY settings.php /var/www/html/app/settings.php
 
