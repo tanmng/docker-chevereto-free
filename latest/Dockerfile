@@ -53,5 +53,3 @@ VOLUME /var/www/html/images
 
 # Change back to root user for normal Service start up
 USER root
-
-RUN chown -R ${CHEVERETO_APACHE_RUN_USER}:${CHEVERETO_APACHE_RUN_GROUP} /var/www/html/images
