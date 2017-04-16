@@ -7,7 +7,7 @@
 
 [Chevereto][cheveretourl] is a powerful and fast image hosting script that allows you to create your very own full featured image hosting website in just minutes.
 
-This docker image was created from the [Chevereto-Free github repository][cheveretogithub].
+Please note that this offers only the [free Chevereto version][cheveretogithub].
 
 ## Supported tags and respective Dockerfile links
 

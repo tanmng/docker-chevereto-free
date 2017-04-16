@@ -41,8 +41,7 @@ LABEL org.label-schema.url="https://github.com/tanmng/docker-chevereto" \
 # Download installer script
 RUN git clone https://github.com/Chevereto/Chevereto-Free.git ${CHEVERETO_CLONE_DIR} \
     && rsync -avip ${CHEVERETO_CLONE_DIR}/ /var/www/html/ \
-    && rm -rf ${CHEVERETO_CLONE_DIR} \
-    && chown -R ${CHEVERETO_APACHE_RUN_USER}:${CHEVERETO_APACHE_RUN_GROUP} /var/www/html
+    && rm -rf ${CHEVERETO_CLONE_DIR}
 
 USER ${CHEVERETO_APACHE_RUN_USER}
 
