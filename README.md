@@ -13,6 +13,7 @@ Please note that this offers only the [free Chevereto version][cheveretogithub].
 
 * `latest` - Using latest source code from [orignal repo][cheveretogithub] ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/latest/Dockerfile))
 * `installer` - Using latest [installer script](https://cdn.rawgit.com/Chevereto/php-repo-installer/master/index.php) ([Dockerfile-installer](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile-installer)) - Once you start the container with this image, you will have to wait for it to download latest source code from [original repo][cheveretogithub]
+* `1.1.1` - Using the [`1.1.1` release](https://github.com/Chevereto/Chevereto-Free/releases/tag/1.1.1) ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile))
 * `1.1.0` - Using the [`1.1.0` release](https://github.com/Chevereto/Chevereto-Free/releases/tag/1.1.0) ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile))
 * `1.0.13` - Using the [`1.0.13` release](https://github.com/Chevereto/Chevereto-Free/releases/tag/1.0.13) ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile))
 * `1.0.12` - Using the [`1.0.12` release](https://github.com/Chevereto/Chevereto-Free/releases/tag/1.0.12) ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile))
@@ -44,12 +45,11 @@ Please note that this offers only the [free Chevereto version][cheveretogithub].
 
 ## Connection to database
 
-[Chevereto][cheveretourl] requires an Mysql database to store its information.
-You can use a [Mysql](https://hub.docker.com/_/mysql/) or [MariaDB](https://hub.docker.com/_/mariadb/) container to host this.
+[Chevereto][cheveretourl] requires an Mysql database to store its information. You can use a [Mysql](https://hub.docker.com/_/mysql/) or [MariaDB](https://hub.docker.com/_/mariadb/) container to host this.
 
 Information on connection to database is provided to container via environment variables explained above.
 
-## Permanent storage
+## Persistent storage
 
 [Chevereto][cheveretourl] stores images uploaded by users in `/var/www/html/images` directory within the container.
 
@@ -67,8 +67,7 @@ An example of this is available in the [`examples/bigger-files` directory](examp
 
 ## Example Usage
 
-I recommend you to use [Docker-compose](https://docs.docker.com/compose/) / [Docker swarm](https://docs.docker.com/engine/swarm/) to launch Chevereto in conjunction with a MySQL database. A sample of docker-compose.yaml can be found
-below.
+I recommend you to use [Docker-compose](https://docs.docker.com/compose/) / [Docker swarm](https://docs.docker.com/engine/swarm/) to launch Chevereto in conjunction with a MySQL database. A sample of docker-compose.yaml can be found below.
 
 ### Docker compose
 
@@ -77,7 +76,7 @@ version: '3'
 
 services:
   db:
-    image: mariadb:10.1.22
+    image: mariadb
     volumes:
       - database:/var/lib/mysql:rw
     restart: always
@@ -92,7 +91,7 @@ services:
   chevereto:
     depends_on:
       - db
-    image: nmtan/chevereto:installer
+    image: nmtan/chevereto
     restart: always
     networks:
       - private
