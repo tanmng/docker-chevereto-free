@@ -13,7 +13,7 @@ COPY settings.php /extracted/Chevereto/app/settings.php
 
 FROM php:$PHP_VERSION
 
-# Install required packages and configure
+# Install required packages and configure plugins + mods for Chevereto
 RUN apt-get update && apt-get install -y \
         libgd-dev && \
     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
@@ -32,11 +32,7 @@ COPY --from=downloader --chown=33:33 /extracted/Chevereto /var/www/html
 VOLUME /var/www/html/images
 
 # DB connection environment variables
-ENV CHEVERETO_DB_HOST db
-ENV CHEVERETO_DB_USERNAME chevereto
-ENV CHEVERETO_DB_PASSWORD chevereto
-ENV CHEVERETO_DB_NAME chevereto
-ENV CHEVERETO_DB_PREFIX chv_
+ENV CHEVERETO_DB_HOST=db CHEVERETO_DB_USERNAME=chevereto CHEVERETO_DB_PASSWORD=chevereto CHEVERETO_DB_NAME=chevereto CHEVERETO_DB_PREFIX=chv_
 ARG BUILD_DATE
 ARG CHEVERETO_VERSION=1.1.0
 
