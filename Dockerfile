@@ -22,7 +22,8 @@ RUN apt-get update && apt-get install -y \
         mysqli \
         pdo \
         pdo_mysql \
-        zip && \
+        zip \
+        exif && \
     a2enmod rewrite
 
 # Download installer script
