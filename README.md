@@ -13,6 +13,8 @@ Please note that this offers only the [free Chevereto version][cheveretogithub].
 
 * `latest` - Using latest source code from [orignal repo][cheveretogithub] ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/latest/Dockerfile))
 * `installer` - Using latest [installer script](https://cdn.rawgit.com/Chevereto/php-repo-installer/master/index.php) ([Dockerfile-installer](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile-installer)) - Once you start the container with this image, you will have to wait for it to download latest source code from [original repo][cheveretogithub]
+* `1.1.3` - Using the [`1.1.3` release](https://github.com/Chevereto/Chevereto-Free/releases/tag/1.1.3) ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile))
+* `1.1.2` - Using the [`1.1.2` release](https://github.com/Chevereto/Chevereto-Free/releases/tag/1.1.2) ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile))
 * `1.1.1` - Using the [`1.1.1` release](https://github.com/Chevereto/Chevereto-Free/releases/tag/1.1.1) ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile))
 * `1.1.0` - Using the [`1.1.0` release](https://github.com/Chevereto/Chevereto-Free/releases/tag/1.1.0) ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile))
 * `1.0.13` - Using the [`1.0.13` release](https://github.com/Chevereto/Chevereto-Free/releases/tag/1.0.13) ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile))
