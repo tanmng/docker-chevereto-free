@@ -33,7 +33,7 @@ COPY --from=downloader --chown=33:33 /extracted/Chevereto /var/www/html
 VOLUME /var/www/html/images
 
 # DB connection environment variables
-ENV CHEVERETO_DB_HOST=db CHEVERETO_DB_USERNAME=chevereto CHEVERETO_DB_PASSWORD=chevereto CHEVERETO_DB_NAME=chevereto CHEVERETO_DB_PREFIX=chv_
+ENV CHEVERETO_DB_HOST=db CHEVERETO_DB_USERNAME=chevereto CHEVERETO_DB_PASSWORD=chevereto CHEVERETO_DB_NAME=chevereto CHEVERETO_DB_PREFIX=chv_ CHEVERETO_DB_PORT=3306
 ARG BUILD_DATE
 ARG CHEVERETO_VERSION=1.1.3
 
