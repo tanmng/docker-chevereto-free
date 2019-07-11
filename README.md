@@ -38,12 +38,16 @@ Please note that this offers only the [free Chevereto version][cheveretogithub].
 
 ## Environment variables
 
+The most essentials environments variables are listed below
+
 * `CHEVERETO_DB_HOST` - Hostname of the Database machine that you wish to connect, default to `db`
 * `CHEVERETO_DB_PORT` - The port of the Database machine to connect to, default to `3306`
 * `CHEVERETO_DB_USERNAME` - Username to authenticate to MySQL database, default to `chevereto`
 * `CHEVERETO_DB_PASSWORD` - Password of the user when connect to MySQL database, default to `chevereto`
 * `CHEVERETO_DB_NAME` - Name of the database in MySQL server, default to `chevereto`
 * `CHEVERETO_DB_PREFIX` - Table prefix (you can use this to run multiple instance of Chevereto using the same Database), default to `chv_`
+
+> For other environment variables, please consult the file [`settings.php`](https://github.com/tanmng/docker-chevereto/blob/master/settings.php) and the section "Advanced configuration" below.
 
 ## Connection to database
 
@@ -66,6 +70,14 @@ By default, PHP allow a maximum file upload to be 2MB. You can change such behav
 > The customized `php.ini` should set the values of `upload_max_filesize`, `post_max_size` and potentially `memory_limit`, as showed in [the discussion from Chevereto Forum](https://chevereto.com/community/threads/chevereto-supports-only-2mb-max-upload-size.4729/). Further details on these parameters are available from [PHP documentation](http://php.net/manual/en/ini.core.php)
 
 An example of this is available in the [`examples/bigger-files` directory](examples/bigger-files)
+
+## Advanced configuration
+
+Chevereto is written using the [`G\` framework](https://g.chevereto.com/) which supports some [advanced configurations](https://github.com/Chevereto/Chevereto-Free/blob/master/lib/G/G.php). Ultimate, that means we can use the variable `$settings` from `settings.php` to add more configurations to the applications. I have added multiple environment variables to support these configurations, please consult [the file `settings.php` from the repo](https://github.c m/tanmng/docker-chevereto/blob/master/settings.php) for the list of these environment variables as well as their purpose. Among these settings, I would say the following two are the most useful
+
+* `CHEVERETO_SESSION_SAVE_PATH` - Specify where Chevereto can save the user session. Combining this with a shared volume/EFS/File synching, you can set up a highly available cluster of Free Chevereto while ensure user login status are not lost if they reconnect to another container.
+* `CHEVERETO_DEFAULT_TIMEZONE` - Specify the default timezone for any newly created/registered user, please make sure to use a [PHP supported value](https://www.php.net/manual/en/timezones.php) eg. `America/New_York`.
+
 
 ## Example Usage
 
