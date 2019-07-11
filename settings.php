@@ -1,5 +1,6 @@
 <?php
 $settings['db_host'] = $_ENV['CHEVERETO_DB_HOST'];
+$settings['db_port'] = $_ENV['CHEVERETO_DB_PORT'];
 $settings['db_name'] = $_ENV['CHEVERETO_DB_NAME'];
 $settings['db_user'] = $_ENV['CHEVERETO_DB_USERNAME'];
 $settings['db_pass'] = $_ENV['CHEVERETO_DB_PASSWORD'];

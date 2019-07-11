@@ -38,12 +38,12 @@ Please note that this offers only the [free Chevereto version][cheveretogithub].
 
 ## Environment variables
 
-* `CHEVERETO_DB_HOST` - hostname of the Database machine that you wish to connect, default to `db`
+* `CHEVERETO_DB_HOST` - Hostname of the Database machine that you wish to connect, default to `db`
+* `CHEVERETO_DB_PORT` - The port of the Database machine to connect to, default to `3306`
 * `CHEVERETO_DB_USERNAME` - Username to authenticate to MySQL database, default to `chevereto`
 * `CHEVERETO_DB_PASSWORD` - Password of the user when connect to MySQL database, default to `chevereto`
 * `CHEVERETO_DB_NAME` - Name of the database in MySQL server, default to `chevereto`
 * `CHEVERETO_DB_PREFIX` - Table prefix (you can use this to run multiple instance of Chevereto using the same Database), default to `chv_`
-
 
 ## Connection to database
 
