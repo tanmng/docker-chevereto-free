@@ -9,6 +9,8 @@
 
 Please note that this offers only the [free Chevereto version][cheveretogithub].
 
+Paid version to use install php with license key guide https://chevereto.com/community/threads/guide-docker-paid-version-with-nmtan-chevereto-installer-and-real-ip-fix-reverse-proxy.11887/
+
 ## Supported tags and respective Dockerfile links
 
 * `latest` - Using latest source code from [orignal repo][cheveretogithub] ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/latest/Dockerfile))
