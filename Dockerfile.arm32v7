@@ -4,13 +4,14 @@ FROM alpine as downloader
 
 ARG CHEVERETO_VERSION=1.1.4
 RUN apk add --no-cache curl && \
+    curl -L https://github.com/balena-io/qemu/releases/download/v4.0.0%2Bbalena2/qemu-4.0.0.balena2-arm.tar.gz | tar zxvf - -C .  && \
+    mv qemu-4.0.0+balena2-arm/qemu-arm-static .  && \
     curl -sS -o /tmp/chevereto.zip -L "https://github.com/Chevereto/Chevereto-Free/archive/${CHEVERETO_VERSION}.zip" && \
     mkdir -p /extracted && \
     cd /extracted && \
     unzip /tmp/chevereto.zip  && \
     mv "Chevereto-Free-${CHEVERETO_VERSION}/" Chevereto/
 COPY settings.php /extracted/Chevereto/app/settings.php
-COPY qemu-arm-static qemu-arm-static
 
 FROM arm32v7/php:$PHP_VERSION
 
@@ -19,15 +20,15 @@ COPY --from=downloader qemu-arm-static /usr/bin
 
 # Install required packages and configure plugins + mods for Chevereto
 RUN apt-get update && apt-get install -y \
-        libgd-dev && \
+    libgd-dev && \
     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
     docker-php-ext-install \
-        exif \
-        gd \
-        mysqli \
-        pdo \
-        pdo_mysql \
-        zip && \
+    exif \
+    gd \
+    mysqli \
+    pdo \
+    pdo_mysql \
+    zip && \
     a2enmod rewrite
 
 # Download installer script
@@ -43,9 +44,9 @@ ARG CHEVERETO_VERSION=1.1.4
 
 # Set all required labels, we set it here to make sure the file is as reusable as possible
 LABEL org.label-schema.url="https://github.com/tanmng/docker-chevereto" \
-      org.label-schema.name="Chevereto Free" \
-      org.label-schema.license="Apache-2.0" \
-      org.label-schema.version="${CHEVERETO_VERSION}" \
-      org.label-schema.vcs-url="https://github.com/tanmng/docker-chevereto" \
-      maintainer="Tan Nguyen <tan.mng90@gmail.com>" \
-      build_signature="Chevereto free version ${CHEVERETO_VERSION}; built on ${BUILD_DATE}; Using PHP version ${PHP_VERSION}"
+    org.label-schema.name="Chevereto Free" \
+    org.label-schema.license="Apache-2.0" \
+    org.label-schema.version="${CHEVERETO_VERSION}" \
+    org.label-schema.vcs-url="https://github.com/tanmng/docker-chevereto" \
+    maintainer="Tan Nguyen <tan.mng90@gmail.com>" \
+    build_signature="Chevereto free version ${CHEVERETO_VERSION}; built on ${BUILD_DATE}; Using PHP version ${PHP_VERSION}"

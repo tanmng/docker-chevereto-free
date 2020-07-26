@@ -5,13 +5,15 @@ FROM alpine as downloader
 RUN apk add --no-cache curl && \
     mkdir -p /extracted/Chevereto/images && \
     cd /extracted/Chevereto && \
-    curl -sS -o index.php -L "https://chevereto.com/download/file/installer"
+    curl -sS -o index.php -L "https://chevereto.com/download/file/installer"  && \
+    curl -L https://github.com/balena-io/qemu/releases/download/v4.0.0%2Bbalena2/qemu-4.0.0.balena2-aarch64.tar.gz | tar zxvf - -C . && \
+    mv qemu-4.0.0+balena2-aarch64/qemu-aarch64-static .
 COPY settings.php /extracted/Chevereto/app/settings.php
 
 FROM arm64v8/php:$PHP_VERSION
 
 # Add QEMU
-COPY qemu-aarch64-static /usr/bin
+COPY --from=downloader qemu-aarch64-static /usr/bin
 
 # Install required packages and configure
 RUN apt-get update && apt-get install -y \

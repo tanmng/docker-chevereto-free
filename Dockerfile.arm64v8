@@ -4,13 +4,14 @@ FROM alpine as downloader
 
 ARG CHEVERETO_VERSION=1.1.4
 RUN apk add --no-cache curl && \
+    curl -L https://github.com/balena-io/qemu/releases/download/v4.0.0%2Bbalena2/qemu-4.0.0.balena2-aarch64.tar.gz | tar zxvf - -C . && \
+    mv qemu-4.0.0+balena2-aarch64/qemu-aarch64-static .  && \
     curl -sS -o /tmp/chevereto.zip -L "https://github.com/Chevereto/Chevereto-Free/archive/${CHEVERETO_VERSION}.zip" && \
     mkdir -p /extracted && \
     cd /extracted && \
     unzip /tmp/chevereto.zip  && \
     mv "Chevereto-Free-${CHEVERETO_VERSION}/" Chevereto/
 COPY settings.php /extracted/Chevereto/app/settings.php
-COPY qemu-aarch64-static qemu-aarch64-static
 
 FROM arm64v8/php:$PHP_VERSION
 
