@@ -10,11 +10,12 @@ RUN apk add --no-cache curl && \
     unzip /tmp/chevereto.zip  && \
     mv "Chevereto-Free-${CHEVERETO_VERSION}/" Chevereto/
 COPY settings.php /extracted/Chevereto/app/settings.php
+COPY qemu-arm-static qemu-arm-static
 
 FROM arm32v7/php:$PHP_VERSION
 
 # Add QEMU
-COPY qemu-arm-static /usr/bin
+COPY --from=downloader qemu-arm-static /usr/bin
 
 # Install required packages and configure plugins + mods for Chevereto
 RUN apt-get update && apt-get install -y \
