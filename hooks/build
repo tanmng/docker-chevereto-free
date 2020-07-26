@@ -9,7 +9,7 @@
 
 echo "------ HOOK START - BUILD -------"
 
-DOCKER_HUB_NAME=nmtan/chevereto
+DOCKER_HUB_NAME=trann3l/chevereto
 VERSION_LIST_FILE=versions
 BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
 
