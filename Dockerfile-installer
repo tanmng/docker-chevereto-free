@@ -1,5 +1,5 @@
 # Specify the version of PHP we use for our Chevereto
-ARG PHP_VERSION=7.2.11-apache
+ARG PHP_VERSION=7.3-apache
 FROM alpine as downloader
 
 RUN apk add --no-cache curl && \
@@ -38,7 +38,6 @@ ARG BUILD_DATE
 LABEL org.label-schema.url="https://github.com/tanmng/docker-chevereto" \
       org.label-schema.name="Chevereto Free" \
       org.label-schema.license="Apache-2.0" \
-      org.label-schema.version="${CHEVERETO_VERSION}" \
       org.label-schema.vcs-url="https://github.com/tanmng/docker-chevereto" \
       maintainer="Tan Nguyen <tan.mng90@gmail.com>" \
-      build_signature="Chevereto free version ${CHEVERETO_VERSION}; built on ${BUILD_DATE}; Using PHP version ${PHP_VERSION}"
+      build_signature="Chevereto installer; built on ${BUILD_DATE}; Using PHP version ${PHP_VERSION}"

@@ -1,8 +1,8 @@
 # Specify the version of PHP we use for our Chevereto
-ARG PHP_VERSION=7.2.11-apache
+ARG PHP_VERSION=7.3-apache
 FROM alpine as downloader
 
-ARG CHEVERETO_VERSION=1.1.4
+ARG CHEVERETO_VERSION=1.2.2
 RUN apk add --no-cache curl && \
     curl -sS -o /tmp/chevereto.zip -L "https://github.com/Chevereto/Chevereto-Free/archive/${CHEVERETO_VERSION}.zip" && \
     mkdir -p /extracted && \
@@ -35,7 +35,7 @@ VOLUME /var/www/html/images
 # DB connection environment variables
 ENV CHEVERETO_DB_HOST=db CHEVERETO_DB_USERNAME=chevereto CHEVERETO_DB_PASSWORD=chevereto CHEVERETO_DB_NAME=chevereto CHEVERETO_DB_PREFIX=chv_ CHEVERETO_DB_PORT=3306
 ARG BUILD_DATE
-ARG CHEVERETO_VERSION=1.1.4
+ARG CHEVERETO_VERSION=1.2.2
 
 # Set all required labels, we set it here to make sure the file is as reusable as possible
 LABEL org.label-schema.url="https://github.com/tanmng/docker-chevereto" \
