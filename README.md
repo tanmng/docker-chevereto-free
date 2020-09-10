@@ -3,7 +3,7 @@
 
 [![chevereto](http://chevereto.com/app/themes/v3/img/chevereto-blue.svg)][cheveretourl]
 
-# tanmng/chevereto - Chevereto Free Docker
+# nmtan/chevereto - Chevereto Free Docker
 
 [Chevereto][cheveretourl] is a powerful and fast image hosting script that allows you to create your very own full featured image hosting website in just minutes.
 
