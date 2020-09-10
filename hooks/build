@@ -34,10 +34,17 @@ function build_image(){
             -f Dockerfile-installer \
             -t "${image_full_name}" .
       ;;
+      1.2.*)
+        # These versions support php 7.3
+        docker build --rm --build-arg BUILD_DATE="${BUILD_DATE}" \
+            --build-arg CHEVERETO_VERSION="${1}" \
+            -t "${image_full_name}" .
+      ;;
       1.1.*)
         # These versions support php 7.2
         docker build --rm --build-arg BUILD_DATE="${BUILD_DATE}" \
             --build-arg CHEVERETO_VERSION="${1}" \
+            --build-arg PHP_VERSION="7.2-apache" \
             -t "${image_full_name}" .
         ;;
       1.0.1[0-3]|1.0.[6-9])
