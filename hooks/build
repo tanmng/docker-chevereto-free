@@ -95,11 +95,9 @@ function build_image(){
     docker push "${image_full_name}-arm32v7"
     docker push "${image_full_name}-arm64v8"
 
-    docker manifest create "${image_full_name}" "${image_full_name}-amd64" "${image_full_name}-arm32v7" "${image_full_name}-arm64v8"
-
-    docker manifest annotate "${image_full_name}" "${image_full_name}-amd64" --arch amd64 --os linux
-    docker manifest annotate "${image_full_name}" "${image_full_name}-arm32v7" --arch arm --os linux --variant v7
-    docker manifest annotate "${image_full_name}" "${image_full_name}-arm64v8" --arch arm64 --os linux --variant v8
+    docker manifest create -a "${image_full_name}" "${image_full_name}-amd64" "${image_full_name}-arm32v7" "${image_full_name}-arm64v8"
+	
+	docker manifest inspect "${image_full_name}"
 
     docker manifest push "${image_full_name}"
 }
