@@ -10,7 +10,7 @@ export DOCKER_CLI_EXPERIMENTAL=enabled
 
 echo "------ HOOK START - BUILD -------"
 
-DOCKER_HUB_NAME=trann3l/chevereto
+DOCKER_HUB_NAME=${DOCKER_REPO}
 VERSION_LIST_FILE=versions
 BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
 
@@ -96,8 +96,6 @@ function build_image(){
     docker push "${image_full_name}-arm64v8"
 
     docker manifest create -a "${image_full_name}" "${image_full_name}-amd64" "${image_full_name}-arm32v7" "${image_full_name}-arm64v8"
-	
-	docker manifest inspect "${image_full_name}"
 
     docker manifest push "${image_full_name}"
 }
