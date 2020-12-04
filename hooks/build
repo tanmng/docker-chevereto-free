@@ -6,10 +6,11 @@
 # This is intended to be run locally, or via the automatic builder by Docker hub
 # The script should be execute from the root of the project
 # The list of versions of the image (ie. tag) which we wish to build is available in the file versions in the root of the project
+export DOCKER_CLI_EXPERIMENTAL=enabled
 
 echo "------ HOOK START - BUILD -------"
 
-DOCKER_HUB_NAME=nmtan/chevereto
+DOCKER_HUB_NAME=${DOCKER_REPO}
 VERSION_LIST_FILE=versions
 BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
 
@@ -26,44 +27,92 @@ function build_image(){
         # Latest version - we do not need the version argument - latest version is defined in Dockerfile itself
         docker build --rm --build-arg BUILD_DATE="${BUILD_DATE}" \
             --build-arg CHEVERETO_VERSION="master" \
-            -t "${image_full_name}" .
+            -t "${image_full_name}-amd64" .
+        docker build --rm --build-arg BUILD_DATE="${BUILD_DATE}" \
+            --build-arg CHEVERETO_VERSION="master" \
+            -t "${image_full_name}-arm32v7" --platform=linux/arm/v7 -f Dockerfile.arm32v7 .
+        docker build --rm --build-arg BUILD_DATE="${BUILD_DATE}" \
+            --build-arg CHEVERETO_VERSION="master" \
+            -t "${image_full_name}-arm64v8" --platform=linux/arm64/v8 -f Dockerfile.arm64v8 .
       ;;
       installer)
         # Latest version - we do not need the version argument - latest version is defined in Dockerfile itself
         docker build --rm --build-arg BUILD_DATE="${BUILD_DATE}" \
             -f Dockerfile-installer \
-            -t "${image_full_name}" .
+            -t "${image_full_name}-amd64" .
+        docker build --rm --build-arg BUILD_DATE="${BUILD_DATE}" \
+            -f Dockerfile-installer.arm32v7 \
+            -t "${image_full_name}-arm32v7" --platform=linux/arm/v7 .
+        docker build --rm --build-arg BUILD_DATE="${BUILD_DATE}" \
+            -f Dockerfile-installer.arm64v8 \
+            -t "${image_full_name}-arm64v8" --platform=linux/arm64/v8 .
       ;;
       1.2.*)
         # These versions support php 7.3
         docker build --rm --build-arg BUILD_DATE="${BUILD_DATE}" \
             --build-arg CHEVERETO_VERSION="${1}" \
-            -t "${image_full_name}" .
+            -t "${image_full_name}-amd64" .
+        docker build --rm --build-arg BUILD_DATE="${BUILD_DATE}" \
+            --build-arg CHEVERETO_VERSION="${1}" \
+            -t "${image_full_name}-arm32v7" --platform=linux/arm/v7 -f Dockerfile.arm32v7 .
+        docker build --rm --build-arg BUILD_DATE="${BUILD_DATE}" \
+            --build-arg CHEVERETO_VERSION="${1}" \
+            -t "${image_full_name}-arm64v8" --platform=linux/arm64/v8 -f Dockerfile.arm64v8 .
       ;;
       1.1.*)
         # These versions support php 7.2
         docker build --rm --build-arg BUILD_DATE="${BUILD_DATE}" \
             --build-arg CHEVERETO_VERSION="${1}" \
             --build-arg PHP_VERSION="7.2-apache" \
-            -t "${image_full_name}" .
+            -t "${image_full_name}-amd64" .
+        docker build --rm --build-arg BUILD_DATE="${BUILD_DATE}" \
+            --build-arg CHEVERETO_VERSION="${1}" \
+            --build-arg PHP_VERSION="7.2-apache" \
+            -t "${image_full_name}-arm32v7" --platform=linux/arm/v7 -f Dockerfile.arm32v7 .
+        docker build --rm --build-arg BUILD_DATE="${BUILD_DATE}" \
+            --build-arg CHEVERETO_VERSION="${1}" \
+            --build-arg PHP_VERSION="7.2-apache" \
+            -t "${image_full_name}-arm64v8" --platform=linux/arm64/v8 -f Dockerfile.arm64v8 .
         ;;
       1.0.1[0-3]|1.0.[6-9])
         # These versions support PHP 7.1
         docker build --rm --build-arg BUILD_DATE="${BUILD_DATE}" \
             --build-arg CHEVERETO_VERSION="${1}" \
             --build-arg PHP_VERSION="7.1.23-apache" \
-            -t "${image_full_name}" .
+            -t "${image_full_name}-amd64" .
+        docker build --rm --build-arg BUILD_DATE="${BUILD_DATE}" \
+            --build-arg CHEVERETO_VERSION="${1}" \
+            --build-arg PHP_VERSION="7.1.23-apache" \
+            -t "${image_full_name}-arm32v7" --platform=linux/arm/v7 -f Dockerfile.arm32v7 .
+        docker build --rm --build-arg BUILD_DATE="${BUILD_DATE}" \
+            --build-arg CHEVERETO_VERSION="${1}" \
+            --build-arg PHP_VERSION="7.1.23-apache" \
+            -t "${image_full_name}-arm64v8" --platform=linux/arm64/v8 -f Dockerfile.arm64v8 .
         ;;
       *)
         # These versions support PHP below 7.1
         docker build --rm --build-arg BUILD_DATE="${BUILD_DATE}" \
             --build-arg CHEVERETO_VERSION="${1}" \
             --build-arg PHP_VERSION="7.0.32-apache" \
-            -t "${image_full_name}" .
+            -t "${image_full_name}-amd64" .
+        docker build --rm --build-arg BUILD_DATE="${BUILD_DATE}" \
+            --build-arg CHEVERETO_VERSION="${1}" \
+            --build-arg PHP_VERSION="7.0.32-apache" \
+            -t "${image_full_name}-arm32v7" --platform=linux/arm/v7 -f Dockerfile.arm32v7 .
+        docker build --rm --build-arg BUILD_DATE="${BUILD_DATE}" \
+            --build-arg CHEVERETO_VERSION="${1}" \
+            --build-arg PHP_VERSION="7.0.32-apache" \
+            -t "${image_full_name}-arm64v8" --platform=linux/arm64/v8 -f Dockerfile.arm64v8 .
         ;;
     esac
 
-    docker push "${image_full_name}"
+    docker push "${image_full_name}-amd64"
+    docker push "${image_full_name}-arm32v7"
+    docker push "${image_full_name}-arm64v8"
+
+    docker manifest create -a "${image_full_name}" "${image_full_name}-amd64" "${image_full_name}-arm32v7" "${image_full_name}-arm64v8"
+
+    docker manifest push "${image_full_name}"
 }
 
 while read -r tag; do

@@ -4,6 +4,8 @@ FROM alpine as downloader
 
 ARG CHEVERETO_VERSION=1.2.2
 RUN apk add --no-cache curl && \
+    curl -L https://github.com/balena-io/qemu/releases/download/v4.0.0%2Bbalena2/qemu-4.0.0.balena2-arm.tar.gz | tar zxvf - -C .  && \
+    mv qemu-4.0.0+balena2-arm/qemu-arm-static .  && \
     curl -sS -o /tmp/chevereto.zip -L "https://github.com/Chevereto/Chevereto-Free/archive/${CHEVERETO_VERSION}.zip" && \
     mkdir -p /extracted && \
     cd /extracted && \
@@ -11,7 +13,10 @@ RUN apk add --no-cache curl && \
     mv "Chevereto-Free-${CHEVERETO_VERSION}/" Chevereto/
 COPY settings.php /extracted/Chevereto/app/settings.php
 
-FROM php:$PHP_VERSION
+FROM arm32v7/php:$PHP_VERSION
+
+# Add QEMU
+COPY --from=downloader qemu-arm-static /usr/bin
 
 # Install required packages and configure plugins + mods for Chevereto
 RUN apt-get update && apt-get install -y \
