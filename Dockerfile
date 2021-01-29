@@ -1,8 +1,8 @@
 # Specify the version of PHP we use for our Chevereto
-ARG PHP_VERSION=7.3-apache
+ARG PHP_VERSION=7.4-apache
 FROM alpine as downloader
 
-ARG CHEVERETO_VERSION=1.2.2
+ARG CHEVERETO_VERSION=1.3.0
 RUN apk add --no-cache curl && \
     curl -sS -o /tmp/chevereto.zip -L "https://github.com/Chevereto/Chevereto-Free/archive/${CHEVERETO_VERSION}.zip" && \
     mkdir -p /extracted && \

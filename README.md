@@ -16,15 +16,18 @@ or the paid version, while all the other tags will only provide the [free versio
 > Here we list only the most relevant and recent tags, for the full list, please
 use the `tags` tab in [Dockerhub page](https://hub.docker.com/r/nmtan/chevereto)
 
-* `latest` - Using latest release from [orignal repo][cheveretogithub] ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/latest/Dockerfile))
+* `latest` - Using latest commit of the branch `master` from [original repo][cheveretogithub] ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/latest/Dockerfile))
 * `installer` - Using latest [installer script](https://cdn.rawgit.com/Chevereto/php-repo-installer/master/index.php) ([Dockerfile-installer](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile-installer)) - Once you start the container with this image, you will have to wait for it to download latest source code from [original repo][cheveretogithub]
+* `1.3.0` - Using the [`1.3.0` release](https://github.com/Chevereto/Chevereto-Free/releases/tag/1.3.0) ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile))
+* `1.2.3` - Using the [`1.2.3` release](https://github.com/Chevereto/Chevereto-Free/releases/tag/1.2.3) ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile))
+* `1.2.2` - Using the [`1.2.2` release](https://github.com/Chevereto/Chevereto-Free/releases/tag/1.2.2) ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile))
+* `1.2.1` - Using the [`1.2.1` release](https://github.com/Chevereto/Chevereto-Free/releases/tag/1.2.1) ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile))
+* `1.2.0` - Using the [`1.2.0` release](https://github.com/Chevereto/Chevereto-Free/releases/tag/1.2.0) ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile))
 * `1.1.4` - Using the [`1.1.4` release](https://github.com/Chevereto/Chevereto-Free/releases/tag/1.1.4) ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile))
-* `1.1.3` - Using the [`1.1.3` release](https://github.com/Chevereto/Chevereto-Free/releases/tag/1.1.3) ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile))
-* `1.1.2` - Using the [`1.1.2` release](https://github.com/Chevereto/Chevereto-Free/releases/tag/1.1.2) ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile))
-* `1.1.1` - Using the [`1.1.1` release](https://github.com/Chevereto/Chevereto-Free/releases/tag/1.1.1) ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile))
-* `1.1.0` - Using the [`1.1.0` release](https://github.com/Chevereto/Chevereto-Free/releases/tag/1.1.0) ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile))
 
-> Note on PHP version: [Chevereto](cheveretourl) added support for PHP 7.3 since release `1.2.0`, PHP 7.2 since release `1.1.0`, and support for PHP 7.1 since release `1.0.6`, thus, the Docker images use the appropriate version of PHP to ensure the best performance and stability. You can check the [images' labels](https://docs.docker.com/config/labels-custom-metadata/) (by running `docker image inspect IMAGE_NAME`) for this information.
+> Note on PHP version: [Chevereto](cheveretourl) added support for PHP 7.4 since release `1.3.0`, PHP 7.3 since release `1.2.0`, PHP 7.2 since release `1.1.0`, and support for PHP 7.1 since release `1.0.6`, thus, the Docker images use the appropriate version of PHP to ensure the best performance and stability. You can check the [images' labels](https://docs.docker.com/config/labels-custom-metadata/) (by running `docker image inspect IMAGE_NAME`) for this information.
+
+> Some older tag of Chevereto are no longer supported to save up on build resources
 
 ## Environment variables
 
