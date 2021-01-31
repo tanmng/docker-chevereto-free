@@ -17,7 +17,11 @@ FROM php:$PHP_VERSION
 RUN apt-get update && apt-get install -y \
         libgd-dev \
         libzip-dev && \
-    docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
+    bash -c 'if [[ $PHP_VERSION == 7.4.* ]]; then \
+      docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/; \
+    else \
+      docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/; \
+    fi' && \
     docker-php-ext-install \
         exif \
         gd \
