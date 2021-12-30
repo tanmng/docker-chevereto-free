@@ -2,13 +2,13 @@
 ARG PHP_VERSION=7.4-apache
 FROM alpine as downloader
 
-ARG CHEVERETO_VERSION=1.3.0
+ARG CHEVERETO_VERSION=1.6.1
 RUN apk add --no-cache curl && \
     curl -sS -o /tmp/chevereto.zip -L "https://github.com/Chevereto/Chevereto-Free/archive/${CHEVERETO_VERSION}.zip" && \
     mkdir -p /extracted && \
     cd /extracted && \
     unzip /tmp/chevereto.zip  && \
-    mv "Chevereto-Free-${CHEVERETO_VERSION}/" Chevereto/
+    mv "chevereto-free-${CHEVERETO_VERSION}/" Chevereto/
 COPY settings.php /extracted/Chevereto/app/settings.php
 
 FROM php:$PHP_VERSION
