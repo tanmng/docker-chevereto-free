@@ -17,3 +17,12 @@ container_repositories()
 load("@io_bazel_rules_docker//repositories:deps.bzl", container_deps = "deps")
 
 container_deps()
+
+load("@io_bazel_rules_docker//container:pull.bzl", "container_pull")
+
+container_pull(
+    name = "php_7_4_apache",
+    registry = "index.docker.io",
+    repository = "php",
+    tag = "7.4-apache",
+)
