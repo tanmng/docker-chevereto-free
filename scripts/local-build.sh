@@ -9,7 +9,7 @@
 echo "------ LOCAL BUILD: STARTED -------"
 
 DOCKER_HUB_NAME=nmtan/chevereto
-VERSION_LIST_FILE=`realpath $0`/../versions
+VERSION_LIST_FILE=`dirname $0`/../versions
 BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
 
 function build_image(){
