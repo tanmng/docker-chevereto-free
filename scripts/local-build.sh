@@ -40,7 +40,7 @@ function download_version() {
   rm chevereto.zip
   
   # Copy in the config file
-  rsync -avip ../settings.php ${unzip_dir}/
+  rsync -avip ../settings.php ${unzip_dir}/app/
   popd
 }
 
