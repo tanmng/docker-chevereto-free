@@ -82,7 +82,7 @@ function build_image(){
       ;;
     esac
 
-    # docker push "${image_full_name}"
+    docker push "${image_full_name}"
 }
 
 while read -r tag; do
