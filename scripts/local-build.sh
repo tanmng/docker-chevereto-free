@@ -41,7 +41,6 @@ function download_version() {
   
   # Copy in the config file
   case "$version" in
-    latest)
     1.6.*)
       # Version 1.6 up, developer already included the settings-env file
       # Nothing to do

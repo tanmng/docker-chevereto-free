@@ -1,5 +1,5 @@
 [cheveretourl]: https://chevereto.com/
-[cheveretogithub]: https://github.com/Chevereto/Chevereto-Free
+[cheveretogithub]: https://github.com/rodber/chevereto-free
 
 [![chevereto](http://chevereto.com/app/themes/v3/img/chevereto-blue.svg)][cheveretourl]
 
@@ -16,20 +16,19 @@ or the paid version, while all the other tags will only provide the [free versio
 > Here we list only the most relevant and recent tags, for the full list, please
 use the `tags` tab in [Dockerhub page](https://hub.docker.com/r/nmtan/chevereto)
 
-* `latest` - Using latest commit of the branch `master` from [original repo][cheveretogithub] ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/latest/Dockerfile))
-* `installer` - Using latest [installer script](https://cdn.rawgit.com/Chevereto/php-repo-installer/master/index.php) ([Dockerfile-installer](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile-installer)) - Once you start the container with this image, you will have to wait for it to download latest source code from [original repo][cheveretogithub]
-* `1.3.0` - Using the [`1.3.0` release](https://github.com/Chevereto/Chevereto-Free/releases/tag/1.3.0) ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile))
-* `1.2.3` - Using the [`1.2.3` release](https://github.com/Chevereto/Chevereto-Free/releases/tag/1.2.3) ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile))
-* `1.2.2` - Using the [`1.2.2` release](https://github.com/Chevereto/Chevereto-Free/releases/tag/1.2.2) ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile))
-* `1.2.1` - Using the [`1.2.1` release](https://github.com/Chevereto/Chevereto-Free/releases/tag/1.2.1) ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile))
-* `1.2.0` - Using the [`1.2.0` release](https://github.com/Chevereto/Chevereto-Free/releases/tag/1.2.0) ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile))
-* `1.1.4` - Using the [`1.1.4` release](https://github.com/Chevereto/Chevereto-Free/releases/tag/1.1.4) ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/Dockerfile))
+* `latest` - Using latest release from [original repo][cheveretogithub] ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/latest/Dockerfile))
+* `1.6.2`, `1.6.1`, `1.6.0`, `1.5.1`, `1.5.0`, `1.4.2`, `1.4.1`, `1.4.0`, `1.3.0`, `1.2.3` corresponds to the releases from [original repo][cheveretogithub] ([Dockerfile](https://github.com/tanmng/docker-chevereto/blob/master/latest/Dockerfile))
+
 
 > Note on PHP version: [Chevereto](cheveretourl) added support for PHP 7.4 since release `1.3.0`, PHP 7.3 since release `1.2.0`, PHP 7.2 since release `1.1.0`, and support for PHP 7.1 since release `1.0.6`, thus, the Docker images use the appropriate version of PHP to ensure the best performance and stability. You can check the [images' labels](https://docs.docker.com/config/labels-custom-metadata/) (by running `docker image inspect IMAGE_NAME`) for this information.
 
 > Some older tag of Chevereto are no longer supported to save up on build resources
 
 ## Environment variables
+
+Similar to other Docker images, this image strive to allow users to customize their service. In earlier releases, we had to add [`settings.php`](https://github.com/tanmng/docker-chevereto/blob/master/settings.php) to the image to introduce these settings. From release `1.6.1`, [Rodolfo Berrios](http://rodolfoberrios.com/) included [`settings-env.php`](https://github.com/rodber/chevereto-free/blob/1.6/app/settings-env.php) which takes care of this capability. Also, he added some env-var to help users customize the application even more. Please check out the file for further details
+
+## Essential env-var - available in all versions
 
 The most essentials environments variables are listed below
 
@@ -41,6 +40,17 @@ The most essentials environments variables are listed below
 * `CHEVERETO_DB_PREFIX` - Table prefix (you can use this to run multiple instance of Chevereto using the same Database), default to `chv_`
 
 > For other environment variables, please consult the file [`settings.php`](https://github.com/tanmng/docker-chevereto/blob/master/settings.php) and the section "Advanced configuration" below.
+
+## Additional en-vars, Version 1.6 and up
+
+* `CHEVERETO_DB_DRIVER` - DB driver, defaults to `mysql`
+* `CHEVERETO_DB_PDO_ATTRS` - Additional attributes to the PDO driver used by PHP to connect to database server (see [PDO documentation](https://www.php.net/manual/en/ref.pdo-mysql.php))
+* `CHEVERETO_DEBUG_LEVEL` - Debug level, has to be a string that converts to int value
+* `CHEVERETO_HOSTNAME` - Set the path of the application, instead of relying on `$_SERVER` special variable in PHP.
+* `CHEVERETO_HOSTNAME_PATH` - Set the domain name (and path) of the application, instead of relying on `$_SERVER` special variable in PHP.
+* `CHEVERETO_HTTPS` - Force user to use HTTPS (by redirection) when using Chevereto, the env-var will be converted to boolean
+* `CHEVERETO_IMAGE_FORMATS_AVAILABLE` - A Json-encoded list of image formats that you wish to allow on the server.
+* Some others: `CHEVERETO_DISABLE_PHP_PAGES`, `CHEVERETO_DISABLE_UPDATE_HTTP`, `CHEVERETO_DISABLE_UPDATE_CLI`, `CHEVERETO_ERROR_LOG`, `CHEVERETO_IMAGE_LIBRARY`, `CHEVERETO_SESSION_SAVE_HANDLER`, `CHEVERETO_SESSION_SAVE_PATH`
 
 ## Connection to database
 
@@ -54,6 +64,8 @@ Information on connection to database is provided to container via environment v
 
 You can mount a [data volume](https://docs.docker.com/engine/tutorials/dockervolumes/#data-volumes) at this location to ensure that you don't lose your images if you relaunch/remove container.
 
+Please note that inside the container, Chevereto runs as user `www-data` (UID: 33, GID: 33). So the permission of the volume must allow this user (with this UID) write access. Consequentially, that means if you bind mount a directory into the image to use as `images`, you will have to correct the ownership of that directory for the application to work.
+
 ## Max image size
 
 By default, PHP allow a maximum file upload to be 2MB. You can change such behaviour by updating the `php.ini` in your container, either by bind-mount the file, or build a new image with the updated file, that way you can reuse the image on demand.
@@ -63,14 +75,6 @@ By default, PHP allow a maximum file upload to be 2MB. You can change such behav
 > The customized `php.ini` should set the values of `upload_max_filesize`, `post_max_size` and potentially `memory_limit`, as showed in [the discussion from Chevereto Forum](https://chevereto.com/community/threads/chevereto-supports-only-2mb-max-upload-size.4729/). Further details on these parameters are available from [PHP documentation](http://php.net/manual/en/ini.core.php)
 
 An example of this is available in the [`examples/bigger-files` directory](examples/bigger-files)
-
-## Advanced configuration
-
-Chevereto is written using the [`G\` framework](https://g.chevereto.com/) which supports some [advanced configurations](https://github.com/Chevereto/Chevereto-Free/blob/master/lib/G/G.php). Ultimate, that means we can use the variable `$settings` from `settings.php` to add more configurations to the applications. I have added multiple environment variables to support these configurations, please consult [the file `settings.php` from the repo](https://github.c m/tanmng/docker-chevereto/blob/master/settings.php) for the list of these environment variables as well as their purpose. Among these settings, I would say the following two are the most useful
-
-* `CHEVERETO_SESSION_SAVE_PATH` - Specify where Chevereto can save the user session. Combining this with a shared volume/EFS/File synching, you can set up a highly available cluster of Free Chevereto while ensure user login status are not lost if they reconnect to another container.
-* `CHEVERETO_DEFAULT_TIMEZONE` - Specify the default timezone for any newly created/registered user, please make sure to use a [PHP supported value](https://www.php.net/manual/en/timezones.php) eg. `America/New_York`.
-
 
 ## Example Usage
 
