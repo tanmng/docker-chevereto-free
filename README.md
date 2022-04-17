@@ -45,7 +45,7 @@ The most essentials environments variables are listed below
 
 * `CHEVERETO_DB_DRIVER` - DB driver, defaults to `mysql`
 * `CHEVERETO_DB_PDO_ATTRS` - Additional attributes to the PDO driver used by PHP to connect to database server (see [PDO documentation](https://www.php.net/manual/en/ref.pdo-mysql.php))
-* `CHEVERETO_DEBUG_LEVEL` - Debug level, has to be a string that converts to int value
+* `CHEVERETO_DEBUG_LEVEL` - Debug level, has to be a string that converts to int value - see [instruction on debug](https://chevereto-free.github.io/manual/troubleshooting/debug.html#debug) fur details
 * `CHEVERETO_HOSTNAME` - Set the path of the application, instead of relying on `$_SERVER` special variable in PHP.
 * `CHEVERETO_HOSTNAME_PATH` - Set the domain name (and path) of the application, instead of relying on `$_SERVER` special variable in PHP.
 * `CHEVERETO_HTTPS` - Force user to use HTTPS (by redirection) when using Chevereto, the env-var will be converted to boolean
