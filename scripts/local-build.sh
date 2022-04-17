@@ -34,7 +34,7 @@ function download_version() {
   unzip_dir="chevereto-free-${version}"
   if $latest_version; then
     # This is actually not needed, after we create the sym-link latest, subsequent creation will simply fail
-    ln -s ${unzip_dir} latest
+    ln -s ${unzip_dir} chevereto-free-latest
     latest_version=false
   fi
   rm chevereto.zip
@@ -62,7 +62,7 @@ function build_image(){
     tag_name="${1}"
     image_full_name="${DOCKER_HUB_NAME}:${tag_name}"
     case "${tag_name}" in
-      1.[3-6].*)
+      1.[3-6].*|latest)
         # These versions support php 7.4
         docker build --rm --build-arg BUILD_DATE="${BUILD_DATE}" \
             --build-arg CHEVERETO_VERSION="${1}" \
