@@ -41,9 +41,9 @@ COPY --from=composer --chown=33:33 /app/ /var/www/html
 VOLUME /var/www/html/images
 
 # Some default env-var, user is supposed to follow instruction and provide necessary values
-ENV CHEVERETO_DB_DRIVER=mysql CHEVERETO_DB_PREFIX=chv_ CHEVERETO_DB_PORT=3306 CHEVERETO_SERVICING=docker
 ARG BUILD_DATE
 ARG CHEVERETO_VERSION
+ENV CHEVERETO_DB_DRIVER=mysql CHEVERETO_DB_PREFIX=chv_ CHEVERETO_DB_PORT=3306 CHEVERETO_SERVICING=docker CHEVERETO_VERSION=$CHEVERETO_VERSION
 
 # Set all required labels, we set it here to make sure the file is as reusable as possible
 LABEL org.label-schema.url="https://github.com/tanmng/docker-chevereto" \
