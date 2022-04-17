@@ -2,8 +2,18 @@
 $settings['db_host'] = $_ENV['CHEVERETO_DB_HOST'];
 $settings['db_port'] = $_ENV['CHEVERETO_DB_PORT'];
 $settings['db_name'] = $_ENV['CHEVERETO_DB_NAME'];
-$settings['db_user'] = $_ENV['CHEVERETO_DB_USERNAME'];
-$settings['db_pass'] = $_ENV['CHEVERETO_DB_PASSWORD'];
+if (array_key_exists('CHEVERETO_DB_USER')) {
+    // Support to latest config
+    $settings['db_user'] = $_ENV['CHEVERETO_DB_USER'];
+} else {
+    $settings['db_user'] = $_ENV['CHEVERETO_DB_USERNAME'];
+}
+if (array_key_exists('CHEVERETO_DB_PASS')) {
+    // Support to latest config
+    $settings['db_pass'] = $_ENV['CHEVERETO_DB_PASS'];
+} else {
+    $settings['db_pass'] = $_ENV['CHEVERETO_DB_PASSWORD'];
+}
 $settings['db_table_prefix'] = $_ENV['CHEVERETO_DB_PREFIX'];
 $settings['db_driver'] = 'mysql';
 $settings['db_pdo_attrs'] = [];

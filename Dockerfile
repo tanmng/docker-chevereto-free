@@ -44,8 +44,6 @@ VOLUME /var/www/html/images
 ENV CHEVERETO_DB_DRIVER=mysql CHEVERETO_DB_HOST=db CHEVERETO_DB_USER=chevereto CHEVERETO_DB_PASS=chevereto CHEVERETO_DB_NAME=chevereto CHEVERETO_DB_PREFIX=chv_ CHEVERETO_DB_PORT=3306
 # This is needed so that settings-env is used
 ENV CHEVERETO_SERVICING=docker
-# Support older version env-var
-ENV CHEVERETO_DB_USERNAME=${CHEVERETO_DB_USER} CHEVERETO_DB_PASSWORD=${CHEVERETO_DB_PASS}
 ARG BUILD_DATE
 ARG CHEVERETO_VERSION
 
@@ -57,3 +55,5 @@ LABEL org.label-schema.url="https://github.com/tanmng/docker-chevereto" \
       org.label-schema.vcs-url="https://github.com/tanmng/docker-chevereto" \
       maintainer="Tan Nguyen <tan.mng90@gmail.com>" \
       build_signature="Chevereto free version ${CHEVERETO_VERSION}; built on ${BUILD_DATE}; Using PHP version ${PHP_VERSION}"
+      
+ENTRYPOINT ["/var/www/html/custom-entrypoint.sh"]

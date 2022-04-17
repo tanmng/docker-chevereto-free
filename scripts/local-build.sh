@@ -50,6 +50,8 @@ function download_version() {
       rsync -avip ../settings.php ${unzip_dir}/app/
       ;;
   esac
+  
+  rsync -avip ../custom-entrypoint.sh ${unzip_dir}/
   popd
 }
 
