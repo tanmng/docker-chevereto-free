@@ -40,7 +40,17 @@ function download_version() {
   rm chevereto.zip
   
   # Copy in the config file
-  rsync -avip ../settings.php ${unzip_dir}/app/
+  case "$version" in
+    latest)
+    1.6.*)
+      # Version 1.6 up, developer already included the settings-env file
+      # Nothing to do
+      ;;
+    *)
+      # Older version, we need the settings file
+      rsync -avip ../settings.php ${unzip_dir}/app/
+      ;;
+  esac
   popd
 }
 
