@@ -32,12 +32,16 @@ Similar to other Docker images, this image strive to allow users to customize th
 
 The most essentials environments variables are listed below
 
-* `CHEVERETO_DB_HOST` - Hostname of the Database machine that you wish to connect, default to `db`
-* `CHEVERETO_DB_PORT` - The port of the Database machine to connect to, default to `3306`
-* `CHEVERETO_DB_USERNAME` - Username to authenticate to MySQL database, default to `chevereto`
-* `CHEVERETO_DB_PASSWORD` - Password of the user when connect to MySQL database, default to `chevereto`
-* `CHEVERETO_DB_NAME` - Name of the database in MySQL server, default to `chevereto`
-* `CHEVERETO_DB_PREFIX` - Table prefix (you can use this to run multiple instance of Chevereto using the same Database), default to `chv_`
+* `CHEVERETO_DB_HOST` - Hostname of the Database machine that you wish to connect.
+* `CHEVERETO_DB_PORT` - The port of the Database machine to connect to, default to `3306`.
+* `CHEVERETO_DB_USER` - Username to authenticate to MySQL database.
+* `CHEVERETO_DB_PASS` - Password of the user when connect to MySQL database.
+* `CHEVERETO_DB_NAME` - Name of the database in MySQL server.
+* `CHEVERETO_DB_PREFIX` - Table prefix (you can use this to run multiple instance of Chevereto using the same Database), default to `chv_`.
+
+> Previously, we use `CHEVERETO_DB_USERNAME` instead of `CHEVERETO_DB_USER` and `CHEVERETO_DB_PASSWORD` instead of `CHEVERETO_DB_PASS`. Both of these types of env-vars will work. See the explanation below.
+
+> Starting from version `1.6.1`, Chevereto Free supports env-var `CHEVERETO_DB_USER` and `CHEVERETO_DB_PASS` to specify the username + password to connect to database server. Because of that, I updated this Docker image to use the same env-var to be consistent with upstream. You can still use `CHEVERETO_DB_USERNAME` and `CHEVERETO_DB_PASSWORD` for these purposes, but the Docker container will display warning messages about this. Except from that, you use either type of env-var without any issues.
 
 > For other environment variables, please consult the file [`settings.php`](https://github.com/tanmng/docker-chevereto/blob/master/settings.php) and the section "Advanced configuration" below.
 
@@ -130,22 +134,7 @@ Once `docker-compose.yaml` is ready, you can run
 docker-compose up
 ```
 
-To run the service
-
-### Standalone
-
-```bash
-docker run -it --name chevereto -d \
-    --link mysql:mysql \
-    -p 80:80 \
-    -v "$PWD/images":/var/www/html/images \
-    -e "CHEVERETO_DB_HOST=db" \
-    -e "CHEVERETO_DB_USERNAME=chevereto" \
-    -e "CHEVERETO_DB_PASSWORD=chevereto" \
-    -e "CHEVERETO_DB_NAME=chevereto" \
-    -e "CHEVERETO_DB_PREFIX=chv_" \
-    nmtan/chevereto
-```
+To start the service and access Cheverto at `localhost:8080`
 
 ## Note on multi platform
 
