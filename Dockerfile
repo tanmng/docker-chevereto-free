@@ -40,10 +40,8 @@ COPY --from=composer --chown=33:33 /app/ /var/www/html
 # Expose the image directory as a volume
 VOLUME /var/www/html/images
 
-# DB connection environment variables
-ENV CHEVERETO_DB_DRIVER=mysql CHEVERETO_DB_HOST=db CHEVERETO_DB_USER=chevereto CHEVERETO_DB_PASS=chevereto CHEVERETO_DB_NAME=chevereto CHEVERETO_DB_PREFIX=chv_ CHEVERETO_DB_PORT=3306
-# This is needed so that settings-env is used
-ENV CHEVERETO_SERVICING=docker
+# Some default env-var, user is supposed to follow instruction and provide necessary values
+ENV CHEVERETO_DB_DRIVER=mysql CHEVERETO_DB_PREFIX=chv_ CHEVERETO_DB_PORT=3306 CHEVERETO_SERVICING=docker
 ARG BUILD_DATE
 ARG CHEVERETO_VERSION
 
