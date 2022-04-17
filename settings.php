@@ -2,13 +2,13 @@
 $settings['db_host'] = $_ENV['CHEVERETO_DB_HOST'];
 $settings['db_port'] = $_ENV['CHEVERETO_DB_PORT'];
 $settings['db_name'] = $_ENV['CHEVERETO_DB_NAME'];
-if (array_key_exists('CHEVERETO_DB_USER')) {
+if (array_key_exists('CHEVERETO_DB_USER', $_ENV)) {
     // Support to latest config
     $settings['db_user'] = $_ENV['CHEVERETO_DB_USER'];
 } else {
     $settings['db_user'] = $_ENV['CHEVERETO_DB_USERNAME'];
 }
-if (array_key_exists('CHEVERETO_DB_PASS')) {
+if (array_key_exists('CHEVERETO_DB_PASS', $_ENV)) {
     // Support to latest config
     $settings['db_pass'] = $_ENV['CHEVERETO_DB_PASS'];
 } else {
