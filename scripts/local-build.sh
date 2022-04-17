@@ -80,4 +80,7 @@ while read -r tag; do
     build_image "${tag}"
 done < ${VERSION_LIST_FILE}
 
+# Build the lates image
+build_image "latest"
+
 echo "------ LOCAL BUILD: ENDED -------"
